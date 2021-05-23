@@ -1,12 +1,16 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.2.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
+# Add env
+ENV LANG C.UTF-8
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-RUN apk add --no-cache \
+# hadolint ignore=DL3003
+RUN \
+    apk add --no-cache \
     coreutils=8.32-r2 \
     wget=1.21.1-r1 \
     curl \
@@ -14,8 +18,6 @@ RUN apk add --no-cache \
     portaudio-dev \
     protobuf-dev
 
-# Add env
-ENV LANG C.UTF-8
 
 # Install snapcast
 RUN apk add --no-cache snapcast
