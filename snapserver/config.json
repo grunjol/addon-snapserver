@@ -6,6 +6,7 @@
   "url": "https://github.com/grunjol/addon-snapserver",
   "startup": "system",
   "boot": "auto",
+  "host_network": true,
   "map": [
     "share:rw"
   ],
