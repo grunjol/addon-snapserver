@@ -157,7 +157,7 @@ codec = {{ .stream.codec }}
 
 # Buffer [ms]
 {{ if .stream.buffer }}
-codec = {{ .stream.buffer }}
+buffer = {{ .stream.buffer }}
 {{ end }}
 
 # Send audio to muted clients
