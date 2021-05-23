@@ -1,0 +1,1 @@
+# Snapcast Server for Home Assistant

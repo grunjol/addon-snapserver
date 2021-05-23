@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Runs the Snapcast Server
+# ==============================================================================
+declare -a options
+
+bashio::log.info "Starting Snapcast Server..."
+
+/usr/bin/snapserver -c /etc/snapcast/snapserver.conf
