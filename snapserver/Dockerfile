@@ -8,35 +8,20 @@ ENV LANG C.UTF-8
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-# hadolint ignore=DL3003
-RUN \
-    apk add --no-cache \
-    coreutils=8.32-r2 \
-    wget=1.21.1-r1 \
-    curl \
-    cargo \
-    portaudio-dev \
-    protobuf-dev
+RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
 
+# Add packages
+RUN apk add --no-cache \
+    coreutils \
+    wget \
+    snapcast \
+    librespot
 
-# Install snapcast
-RUN apk add --no-cache snapcast
-
-# Install librespot
-RUN cd /root \
- && curl -LO https://github.com/librespot-org/librespot/archive/v0.2.0.zip \
- && unzip v0.2.0.zip \
- && cd librespot-0.2.0 \
- && cargo build --jobs $(grep -c ^processor /proc/cpuinfo) --release --no-default-features \
- && mv target/release/librespot /usr/local/bin \
- && cd / \
- && apk --purge del curl cargo portaudio-dev protobuf-dev \
- && apk add llvm-libunwind \
- && rm -rf /etc/ssl /var/cache/apk/* /lib/apk/db/* /root/v0.2.0.zip /root/librespot-0.2.0 /root/.cargo
+# Cleanup
+RUN rm -rf /etc/ssl /var/cache/apk/* /lib/apk/db/*
 
 # Copy root filesystem
 COPY rootfs /
-
 
 # Build arguments
 ARG BUILD_ARCH
