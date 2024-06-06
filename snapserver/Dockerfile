@@ -16,6 +16,7 @@ RUN apk add --no-cache \
     coreutils \
     wget \
     snapcast \
+    snapweb \
     librespot
 
 # Cleanup
