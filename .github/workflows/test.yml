@@ -16,5 +16,5 @@ jobs:
             --test \
             --amd64 \
             --target snapserver \
-            --docker-hub grunjol
+            --docker-hub grunjol/snapserver-{arch}
           
