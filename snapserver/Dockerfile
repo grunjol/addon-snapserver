@@ -8,11 +8,14 @@ ENV LANG C.UTF-8
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
-RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+# RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
+RUN echo 'https://mirror.leaseweb.com/alpine/edge/testing' > /etc/apk/repositories
+RUN echo 'https://mirror.leaseweb.com/alpine/edge/main' >> /etc/apk/repositories
+RUN echo 'https://mirror.leaseweb.com/alpine/edge/community' >> /etc/apk/repositories
+
 
 # Add packages
-RUN apk add --no-cache \
+RUN apk add --no-cache  \
     coreutils \
     wget \ 
     snapcast-server
