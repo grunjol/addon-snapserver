@@ -72,6 +72,14 @@ enabled = {{ .http.enabled }}
 {{ if .http.doc_root }}
 doc_root = {{ .http.doc_root }}
 {{ end }}
+
+# Hostname or IP under which clients can reach this host
+# used to serve cached cover art
+# use <hostname> as placeholder for your actual host name  
+{{ if .http.host }}
+host = {{ .http.host }}
+{{ end }}
+
 #
 ###############################################################################
 
@@ -92,7 +100,11 @@ enabled = {{ .tcp.enabled }}
 #bind_to_address = 0.0.0.0
 
 # which port the server should listen to
-#port = 1705
+{{ if .tcp.port }}
+enabled = {{ .tcp.port }}
+{{ else }}
+port = 1705
+{{ end }}
 #
 ###############################################################################
 
@@ -165,7 +177,13 @@ buffer = {{ .stream.buffer }}
 send_to_muted = {{ .stream.send_to_muted }}
 {{ end }}
 
+# Streaming client options ####################################################
+#
+[streaming_client]
 
+# Volume assigned to new snapclients [percent]
+# Defaults to 100 if unset
+#initial_volume = 100
 #
 ###############################################################################
 
