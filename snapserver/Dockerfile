@@ -22,7 +22,7 @@ RUN apk add --no-cache  \
 
 ARG BUILD_ARCH
 RUN if [ "${BUILD_ARCH}" = "amd64" ]; then \
-    apk add --no-cache --repository=https://mirror.fel.cvut.cz/alpine/snapshots/2024-10-05/edge/testing/ librespot=0.4.2-r4 ; \
+    apk add --no-cache --repository=https://mirror.fel.cvut.cz/alpine/edge/testing/ librespot=0.4.2-r4 ; \
     else \
     apk add --no-cache librespot ; \
     fi
