@@ -14,7 +14,6 @@ RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposi
 # Add packages
 RUN apk add --no-cache \
     coreutils \
-    ca-certificates \
     wget \ 
     snapcast-server
 
