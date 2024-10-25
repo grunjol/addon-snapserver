@@ -14,11 +14,10 @@ RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/reposi
 # Add packages
 RUN apk add --no-cache \
     coreutils \
-    wget
-    
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ librespot=0.4.2-r4
-
-RUN apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community/ snapcast-server=0.29.0-r0
+    ca-certificates \
+    wget \ 
+    librespot \
+    snapcast-server
 
 RUN \
     wget https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip && \
