@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     wget \
     snapcast \
     snapweb \
-    librespot
+    librespot=0.4.2-r4
 
 # Cleanup
 RUN rm -rf /etc/ssl /var/cache/apk/* /lib/apk/db/*
