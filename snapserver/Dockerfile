@@ -18,14 +18,8 @@ RUN echo 'https://mirror.leaseweb.com/alpine/edge/community' >> /etc/apk/reposit
 RUN apk add --no-cache  \
     coreutils \
     wget \ 
-    snapcast-server
-
-ARG BUILD_ARCH
-RUN if [ "${BUILD_ARCH}" = "amd64" ]; then \
-    apk add --no-cache --repository=https://mirror.fel.cvut.cz/alpine/edge/testing/ librespot=0.4.2-r4 ; \
-    else \
-    apk add --no-cache librespot ; \
-    fi
+    snapcast-server \
+    librespot
 
 RUN \
     wget https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip && \
@@ -39,7 +33,7 @@ RUN rm -rf /etc/ssl /var/cache/apk/* /lib/apk/db/*
 COPY rootfs /
 
 # Build arguments
-
+ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
 ARG BUILD_NAME
