@@ -22,7 +22,7 @@ RUN apk add --no-cache  \
     librespot
 
 RUN \
-    wget https://github.com/badaix/snapweb/releases/download/v0.8.0/snapweb.zip && \
+    wget https://github.com/badaix/snapweb/releases/download/v0.9.1/snapweb.zip && \
     unzip -o snapweb.zip -d /usr/share/snapserver/snapweb/ && \
     rm snapweb.zip    
 
