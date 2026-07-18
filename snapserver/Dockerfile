@@ -1,38 +1,27 @@
-ARG BUILD_FROM
-# hadolint ignore=DL3006
-FROM ${BUILD_FROM}
-# Add env
-ENV LANG C.UTF-8
+FROM ghcr.io/home-assistant/base:latest
 
-# Set shell
+ENV LANG=C.UTF-8
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Setup base
-# RUN sed -i -e 's/v[[:digit:]]\..*\//edge\//g' /etc/apk/repositories
-RUN echo 'https://mirror.leaseweb.com/alpine/edge/testing' > /etc/apk/repositories
-RUN echo 'https://mirror.leaseweb.com/alpine/edge/main' >> /etc/apk/repositories
-RUN echo 'https://mirror.leaseweb.com/alpine/edge/community' >> /etc/apk/repositories
+# Add Edge testing repo only for librespot
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories \
+    && apk update
 
-
-# Add packages
-RUN apk add --no-cache  \
-    coreutils \
-    wget \ 
+RUN apk add --no-cache \
+    wget \
+    unzip \
     snapcast-server \
     librespot
 
-RUN \
-    wget https://github.com/snapcast/snapweb/releases/download/v0.9.3/snapweb.zip && \
-    unzip -o snapweb.zip -d /usr/share/snapserver/snapweb/ && \
-    rm snapweb.zip    
+RUN wget -q https://github.com/snapcast/snapweb/releases/download/v0.9.3/snapweb.zip \
+    && unzip -o snapweb.zip -d /usr/share/snapserver/snapweb/ \
+    && rm snapweb.zip
 
-# Cleanup
 RUN rm -rf /etc/ssl /var/cache/apk/* /lib/apk/db/*
 
-# Copy root filesystem
 COPY rootfs /
 
-# Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
@@ -41,12 +30,11 @@ ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
 
-# Labels
 LABEL \
     io.hass.name="${BUILD_NAME}" \
     io.hass.description="${BUILD_DESCRIPTION}" \
     io.hass.arch="${BUILD_ARCH}" \
-    io.hass.type="addon" \
+    io.hass.type="app" \
     io.hass.version=${BUILD_VERSION} \
     maintainer="grunjol <grunjol@gmail.com>" \
     org.opencontainers.image.title="${BUILD_NAME}" \
